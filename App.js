@@ -4,8 +4,8 @@ import { StyleSheet, View, Pressable } from 'react-native';
 import { Slider, Text, Switch } from '@rneui/themed';
 import { FontAwesome6 } from '@expo/vector-icons';
 import {
-  setupAcUnitStateListener,
-  writeAcUnitState,
+  setupAcUnitParamsListener,
+  writeAcUnitParams,
 } from './helpers/fb-helpers';
 
 export default function App() {
@@ -16,7 +16,7 @@ export default function App() {
   const [actualTemp, setActualTemp] = useState(72);
 
   const adjustTargetTemp = () => {
-    writeAcUnitState(
+    writeAcUnitParams(
       85 - sliderValue,
       actualTemp,
       onOffButton,
@@ -25,16 +25,16 @@ export default function App() {
   };
 
   const toggleOnOffButton = () => {
-    writeAcUnitState(targetTemp, actualTemp, !onOffButton, true);
+    writeAcUnitParams(targetTemp, actualTemp, !onOffButton, true);
   };
 
   const toggleOverrideSwitch = () => {
-    writeAcUnitState(targetTemp, actualTemp, onOffButton, !overrideEnabled);
+    writeAcUnitParams(targetTemp, actualTemp, onOffButton, !overrideEnabled);
   };
 
   useEffect(() => {
     try {
-      setupAcUnitStateListener((state) => {
+      setupAcUnitParamsListener((state) => {
         setOnOffButton(state.onOffButton);
         setOverrideEnabled(state.overrideEnabled);
         setTargetTemp(state.targetTemp);
