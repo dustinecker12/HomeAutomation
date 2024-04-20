@@ -17,13 +17,13 @@ if (!getApps().length) {
   db = getDatabase(app);
 }
 
-export function writeAcUnitState(
+export function writeAcUnitParams(
   targetTemp,
   actualTemp,
   onOffButton,
   overrideEnabled
 ) {
-  set(ref(db, 'acState/'), {
+  set(ref(db, 'acParams/'), {
     targetTemp: targetTemp,
     actualTemp: actualTemp,
     onOffButton: onOffButton,
@@ -31,8 +31,8 @@ export function writeAcUnitState(
   });
 }
 
-export function setupAcUnitStateListener(updateFunc) {
-  onValue(ref(db, 'acState/'), (snapshot) => {
+export function setupAcUnitParamsListener(updateFunc) {
+  onValue(ref(db, 'acParams/'), (snapshot) => {
     if (snapshot.val()) {
       updateFunc(snapshot.val());
     }
